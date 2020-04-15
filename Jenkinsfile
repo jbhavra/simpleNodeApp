@@ -20,11 +20,11 @@ pipeline{
 
         stage('Sonar and Security'){
             environment {
-                scannerHome = tool 'SonarScanner 4.0'
+                def scannerHome = tool 'SonarQube Scanner'
             } 
             steps{
-                withSonarQubeEnv('SonarQube'){
-                    sh "ls ${scannerHome}/bin"
+                withSonarQubeEnv('SonarQubeServer'){
+                    sh "ls ${scannerHome}"
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
