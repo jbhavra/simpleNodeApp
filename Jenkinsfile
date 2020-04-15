@@ -1,12 +1,8 @@
 pipeline{
-    agent{
-        docker{
-            image 'node:latest'
-        }
-    }
+    agent any
+    tools {nodejs "NodeJs"}
     environment {
                 def scannerHome = tool 'SonarScanner';
-                HOME = '.'
             }
 
     stages{
