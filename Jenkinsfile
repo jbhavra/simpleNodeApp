@@ -4,6 +4,9 @@ pipeline{
             image 'node:latest'
         }
     }
+    environment {
+        HOME = '.'
+    }
 
     stages{
         stage('Build'){
