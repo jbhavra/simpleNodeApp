@@ -27,7 +27,7 @@ pipeline{
             } 
             steps{
                 withSonarQubeEnv('SonarQubeServer'){
-                    sh "ls /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/"
+                    //sh "ls /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/"
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
