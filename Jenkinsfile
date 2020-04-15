@@ -1,19 +1,28 @@
 pipeline{
     agent any
-    //tools {nodejs "NodeJs"}
     environment {
                 def scannerHome = tool 'SonarScanner';
+                HOME = '.'
             }
 
     stages{
         stage('Build'){
+            agent{
+                docker{
+                    image 'node:latest'
+                }
+            }
             steps{
-                sh "apk add nodejs"
                 sh 'npm install'
             }
         }
 
         stage('Unit Test'){
+            agent{
+                docker{
+                    image 'node:latest'
+                }
+            }
             steps{
                 sh 'npm test'
             }
@@ -22,11 +31,7 @@ pipeline{
         stage('Sonar and Security'){
             steps{
                 withSonarQubeEnv('SonarQubeServer'){
-                   /* sh """
-                        cd /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner
-                        ls -la
-                    """ */
-                    sh "${scannerHome}/sonar-scanner-cli-4.2.0.1873-linux/bin/sonar-scanner"
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
