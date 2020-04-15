@@ -23,7 +23,7 @@ pipeline{
 
         stage('Sonar and Security'){
             environment {
-                def scannerHome = tool 'SonarQube Scanner'
+                def scannerHome = tool 'SonarQube Scanner';
             } 
             steps{
                 withSonarQubeEnv('SonarQubeServer'){
