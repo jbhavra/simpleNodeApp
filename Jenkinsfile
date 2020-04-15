@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    tools {nodejs "NodeJs"}
+    //tools {nodejs "NodeJs"}
     environment {
                 def scannerHome = tool 'SonarScanner';
             }
@@ -8,6 +8,7 @@ pipeline{
     stages{
         stage('Build'){
             steps{
+                sh "apk add nodejs"
                 sh 'npm install'
             }
         }
