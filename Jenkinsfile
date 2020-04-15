@@ -5,8 +5,9 @@ pipeline{
         }
     }
     environment {
-        HOME = '.'
-    }
+                def scannerHome = tool 'SonarQube Scanner';
+                HOME = '.'
+            }
 
     stages{
         stage('Build'){
@@ -22,17 +23,11 @@ pipeline{
         }
 
         stage('Sonar and Security'){
-            agent{
-                docker{image 'maven:3-alpine'}
-            }
-            environment {
-                def scannerHome = tool 'SonarQube Scanner';
-            } 
             steps{
                 withSonarQubeEnv('SonarQubeServer'){
                     //sh "ls /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/"
-                    //sh "${scannerHome}/bin/sonar-scanner"
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    //sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
