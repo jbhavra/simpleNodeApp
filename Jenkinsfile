@@ -5,7 +5,7 @@ pipeline{
         }
     }
     environment {
-                def scannerHome = tool 'SonarQube Scanner';
+                def scannerHome = tool 'SonarScanner';
                 HOME = '.'
             }
 
