@@ -25,11 +25,11 @@ pipeline{
         stage('Sonar and Security'){
             steps{
                 withSonarQubeEnv('SonarQubeServer'){
-                    sh """
+                   /* sh """
                         cd /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarScanner
                         ls -la
-                    """
-                    sh "${scannerHome}/bin/sonar-scanner"
+                    """ */
+                    sh "${scannerHome}/sonar-scanner-cli-4.2.0.1873-linux/bin/sonar-scanner"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
