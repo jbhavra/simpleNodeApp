@@ -3,9 +3,6 @@ pipeline{
         docker{
             image 'node:latest'
         }
-        docker{
-            image 'maven:3-alpine'
-        }
     }
     environment {
         HOME = '.'
@@ -25,6 +22,9 @@ pipeline{
         }
 
         stage('Sonar and Security'){
+            agent{
+                docker{image 'maven:3-alpine'}
+            }
             environment {
                 def scannerHome = tool 'SonarQube Scanner';
             } 
