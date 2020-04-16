@@ -1,5 +1,9 @@
 pipeline{
-    agent any
+    agent{
+        docker{
+            image 'node:latest'
+        }
+    }
     environment {
                 def scannerHome = tool 'SonarScanner';
                 HOME = '.'
@@ -7,22 +11,12 @@ pipeline{
 
     stages{
         stage('Build'){
-            agent{
-                docker{
-                    image 'node:latest'
-                }
-            }
             steps{
                 sh 'npm install'
             }
         }
 
         stage('Unit Test'){
-            agent{
-                docker{
-                    image 'node:latest'
-                }
-            }
             steps{
                 sh 'npm test'
             }
