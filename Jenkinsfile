@@ -1,17 +1,16 @@
 pipeline{
-   agent any
-   /* agent{
+    agent{
         docker{
             image 'node:latest'
         }
-    } */
+    }
     environment {
                 def scannerHome = tool 'SonarScanner';
                 HOME = '.'
             }
 
     stages{
-        /* stage('Build'){
+        stage('Build'){
             steps{
                 sh 'npm install'
             }
@@ -21,7 +20,7 @@ pipeline{
             steps{
                 sh 'npm test'
             }
-        } */
+        }
 
         stage('Sonar and Security'){
             steps{
