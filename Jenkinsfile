@@ -10,8 +10,8 @@ pipeline{
                 HOME = '.'
             }
 
-   /* stages{
-        stage('Build'){
+    stages{
+        /* stage('Build'){
             steps{
                 sh 'npm install'
             }
