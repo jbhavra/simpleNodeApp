@@ -19,7 +19,7 @@ pipeline{
             }
         }
 
-        stage('Sonar and Security'){
+        stage('Sonar Scan'){
             steps{
                 withSonarQubeEnv('SonarQubeServer'){
                     sh "${scannerHome}/bin/sonar-scanner"
@@ -27,6 +27,12 @@ pipeline{
                 timeout(time: 10, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
+            }
+        }
+
+        stage('Security'){
+            steps{
+                snykSecurity organisation: 'jbhavra', projectName: 'simpleNodeApp', severity: 'medium', snykInstallation: 'SnykSecurityPlugin', snykTokenId: 'SnykAPIToken'
             }
         }
 
